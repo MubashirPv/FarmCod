@@ -1,6 +1,6 @@
 import 'package:farm_cod/Screens/Home/Widgets/bottom_navigation.dart';
 import 'package:farm_cod/Screens/cart_screen.dart';
-import 'package:farm_cod/Screens/profile_screen.dart';
+import 'package:farm_cod/Screens/Profile/profile_screen.dart';
 import 'package:farm_cod/Screens/search_screen.dart';
 import 'package:farm_cod/Screens/Home/Widgets/widget_home_screen.dart';
 import 'package:flutter/material.dart';

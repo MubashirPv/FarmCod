@@ -11,6 +11,9 @@ class LoginSignupScreen extends StatefulWidget {
 class _LoginSignupScreenState extends State<LoginSignupScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+   final SnackBar _snackBar = const SnackBar(content: Text("Login successfull"),duration: Duration(seconds: 3),);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,27 +72,29 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               ),
             ),
             Container(
-                height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: ElevatedButton(
-                  child: const Text('Login'),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const HomeScreen();
-                        },
-                      ),
-                    );
-                  },
-                )),
+              height: 50,
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: ElevatedButton(
+                child: const Text('Login'),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const HomeScreen();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text('Does not have account?'),
                 TextButton(
                   child: const Text(
-                    'Sign in',
+                    'Sign up',
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
