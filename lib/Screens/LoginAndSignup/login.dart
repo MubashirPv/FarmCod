@@ -1,18 +1,24 @@
 import 'package:farm_cod/Screens/Home/home_screen.dart';
+import 'package:farm_cod/Screens/LoginAndSignup/forget_password.dart';
+import 'package:farm_cod/Screens/LoginAndSignup/signup.dart';
 import 'package:flutter/material.dart';
 
-class LoginSignupScreen extends StatefulWidget {
-  const LoginSignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginSignupScreen> createState() => _LoginSignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginSignupScreenState extends State<LoginSignupScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController nameController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
 
-   final SnackBar _snackBar = const SnackBar(content: Text("Login successfull"),duration: Duration(seconds: 3),);
+  final SnackBar _snackBar = const SnackBar(
+    content: Text("Login successfull"),
+    duration: Duration(seconds: 3),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +26,27 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
+          padding: const EdgeInsets.only(top: 150),
           children: <Widget>[
             Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'FarmCod',
-                  style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
-                )),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: const Text(
+                'FarmCod',
+                style: TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 30),
+              ),
+            ),
             Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'Sign in',
-                  style: TextStyle(fontSize: 20),
-                )),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: const Text(
+                'Sign in',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.all(10),
               child: Material(
@@ -65,7 +74,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             ),
             TextButton(
               onPressed: () {
-                //forgot password screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: ((context) {
+                      return const ForgetPasswordScreen();
+                    }),
+                  ),
+                );
               },
               child: const Text(
                 'Forgot Password',
@@ -81,7 +96,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        return const HomeScreen();
+                        return  HomeScreen();
                       },
                     ),
                   );
@@ -98,7 +113,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    //signup screen
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const SignUpScreen();
+                        },
+                      ),
+                    );
                   },
                 ),
               ],

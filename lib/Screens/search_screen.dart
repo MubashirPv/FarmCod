@@ -1,7 +1,19 @@
+import 'package:farm_cod/Provider/product_data.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
+import '../Models/product.dart';
+
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
+
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  List<Product> _searchResult = [];
+  final ProductData _productData = ProductData();
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +23,8 @@ class SearchScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextField(
+              controller: _searchController,
+              onChanged: _onSearchTextChanged,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
                 fillColor: Colors.white,
@@ -31,13 +45,54 @@ class SearchScreen extends StatelessWidget {
                 ),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
-                  onPressed: () {},
+                  onPressed: _clearSearch,
                 ),
               ),
             ),
-          )
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _searchResult.length,
+              itemBuilder: (BuildContext context, int index) {
+                Product product = _searchResult[index];
+                return ListTile(
+                  title: Text(product.name),
+                  subtitle: Text('\$${product.price}'),
+                  leading: Image.network(product.image),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  void _onSearchTextChanged(String value) {
+    setState(() {
+      _searchResult = _productData.accessories
+          .where((product) =>
+              product.name.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+      _searchResult.addAll(_productData.plants
+          .where((product) =>
+              product.name.toLowerCase().contains(value.toLowerCase()))
+          .toList());
+      _searchResult.addAll(_productData.pots
+          .where((product) =>
+              product.name.toLowerCase().contains(value.toLowerCase()))
+          .toList());
+      _searchResult.addAll(_productData.seeds
+          .where((product) =>
+              product.name.toLowerCase().contains(value.toLowerCase()))
+          .toList());
+    });
+  }
+
+  void _clearSearch() {
+    setState(() {
+      _searchController.clear();
+      _searchResult.clear();
+    });
   }
 }

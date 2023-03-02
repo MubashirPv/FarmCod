@@ -10,18 +10,22 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   var names = [
     "My Orders",
-    "Saves Addresses",
-    "Revies",
-    "Coupons",
-    "Settings",
+    "Manage Address",
+    "Reviews",
+    "Help & feedback",
+    "Contact us",
+    "sell with us",
+    "Share App"
   ];
 
   var themeicons = [
     Icons.shopping_cart,
     Icons.add_circle,
     Icons.rate_review,
-    Icons.airplane_ticket,
-    Icons.settings
+    Icons.feedback,
+    Icons.contact_support_sharp,
+    Icons.sell_outlined,
+    Icons.share
   ];
 
   showAlertDialogue(BuildContext context) {
@@ -37,17 +41,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
-              children:  [
-                InkWell(
-                  onTap: (){},
-                  child: const Text("Choose from gallery")),
+              children: [
+                InkWell(onTap: () {}, child: const Text("Choose from gallery")),
                 const Divider(
                   height: 10,
                   thickness: 1,
                 ),
-                InkWell(
-                  onTap: (){},
-                  child: const Text("Take photo")),
+                InkWell(onTap: () {}, child: const Text("Take photo")),
               ],
             ),
             actions: [
@@ -64,29 +64,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Account'),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
             children: [
-              Stack(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.blue[100],
-                    maxRadius: 80,
-                  ),
-                  Positioned(
-                    bottom: 4,
-                    right: 4,
-                    child: IconButton(
-                      onPressed: () {
-                        showAlertDialogue(context);
-                      },
-                      icon: const Icon(Icons.edit),
+              Center(
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.blue[100],
+                      maxRadius: 80,
                     ),
-                  )
-                ],
+                    Positioned(
+                      bottom: 4,
+                      right: 4,
+                      child: IconButton(
+                        onPressed: () {
+                          showAlertDialogue(context);
+                        },
+                        icon: const Icon(Icons.edit),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 15,
@@ -94,6 +99,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const Text(
                 'Profile Name',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 15,
               ),
               const Divider(
                 thickness: 3,
@@ -105,10 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return ListTile(
                     leading: Icon(themeicons[index]),
                     title: Text(names[index]),
-                    trailing: InkWell(
-                      onTap: () {},
-                      child: const Icon(Icons.arrow_forward),
-                    ),
+                    onTap: () {},
                   );
                 },
                 separatorBuilder: ((context, index) {
@@ -117,12 +122,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 5,
                   );
                 }),
-                itemCount: 5,
+                itemCount: 7,
               ),
               const Divider(
                 thickness: 3,
                 height: 5,
               ),
+              const SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 50, right: 50),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Logout'),
+                ),
+              )
             ],
           ),
         ),
